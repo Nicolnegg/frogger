@@ -1,24 +1,23 @@
-class Frog extends Rectangulo{
+class Frog extends Rectangulo {
   Obstacle attached=null;
-  Frog(float x, float y, float w){
-    super(x,y,w,w);
+  Frog(float x, float y, float w) {
+    super(x, y, w, w);
   }
-  void attach(Obstacle log){
+  void attach(Obstacle log) {
     attached=log;
   }
-  void show(){
+  void show() {
     fill(255);
-    rect(x,y,w,w);
+    rect(x, y, w, w);
   }
-  void update(){
-    if (attached !=null){
-      frog.x += attached.speed;
+  void update() {
+    if (attached !=null) {
+      x += attached.speed;
     }
-    frog.x=constrain(x,0,width-2);
+    x = constrain(x, 0, width-2);
   }
-  void move(float xdir, float ydir){
-    x+=xdir*grid;
-    y+=ydir*grid;
+  void move(float xdir, float ydir) {
+    x += xdir*grid;
+    y += ydir*grid;
   }
-
 }

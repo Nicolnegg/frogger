@@ -1,19 +1,104 @@
 Frog frog;
 Obstacle[] cars;
 Obstacle[] logs;
-float grid = 40 ;
+Fruta[] frutas;
+float grid = 40;
+int puntuacion = 0;
+int nivel = 1;
 
-void resetGame(){
-  frog= new Frog(width/2-grid/2,height-grid,grid);
+void resetGame() {
+  frog = new Frog(width/2-grid/2, height-grid, grid);
   frog.attach(null);
+  puntuacion = 0;
+  generarNivel(nivel);// Reiniciar la puntuación
 }
+
 void setup() {
-  size(600,560);
-  cars=new Obstacle[24];
-  logs=new Obstacle[8];
-  //frog= new Frog(width/2-grid/2,height-grid,grid);
+  size(600, 560);
+  cars = new Obstacle[24];
+  logs = new Obstacle[8];
+  frutas = new Fruta[10]; // Ajustar la cantidad de frutas
   resetGame();
-  int index=0;
+  generarNivel(nivel);
+  nivel=1;
+}
+
+void draw() {
+  background(0);
+  fill(255, 100, 100);
+  rect(0, height-grid, width, grid);
+  rect(0, height-grid*5, width, grid);
+  rect(0, height-grid*9, width, grid);
+  fill(255, 200, 100);
+  rect(0, height-grid*13, width, grid);
+
+  for (Obstacle car : cars) {
+    car.show();
+    car.update();
+    if (car.choca(frog)) {
+      println("GAME OVER");
+      resetGame();
+    }
+  }
+
+  for (Obstacle log : logs) {
+    log.show();
+    log.update();
+  }
+
+  for (int i = 0; i < frutas.length; i++) {
+    if (frutas[i] != null) {
+      frutas[i].show();
+      if (frog.choca(frutas[i])) {
+        frutas[i] = null;
+        puntuacion += 20; // Aumentar la puntuación al recoger una fruta
+      }
+    }
+  }
+
+  if (frog.y < height-grid*5 && frog.y > height-grid*8) {
+    boolean ok = false;
+    for (Obstacle log : logs) {
+      if (frog.choca(log)) {
+        ok = true;
+        frog.attach(log);
+      }
+    }
+    if (!ok) {
+      resetGame();
+    }
+  } else {
+    frog.attach(null);
+  }
+  frog.update();
+  frog.show();
+  mostrarPuntuacion();
+  if (puntuacion >= 50 && frog.y==height-grid*13) {
+    nivel++;
+    generarNivel(nivel);
+  }
+}
+
+void keyPressed() {
+  if (keyCode == UP) {
+    frog.move(0, -1);
+  } else if (keyCode == DOWN) {
+    frog.move(0, 1);
+  } else if (keyCode == RIGHT) {
+    frog.move(1, 0);
+  } else if (keyCode == LEFT) {
+    frog.move(-1, 0);
+  }
+}
+
+void generarNivel(int nivel) {
+  // Reiniciar obstáculos y frutas
+  frog = new Frog(width/2-grid/2, height-grid, grid);
+  frog.attach(null);
+  cars = new Obstacle[24];
+  logs = new Obstacle[8];
+  frutas = new Fruta[100]; // Ajustar la cantidad de frutas
+  int index = 0;
   //Fila 1
   for(int i =0;i<3;i++){
     float x=i*random(grid*3,300);  //separación
@@ -51,7 +136,7 @@ void setup() {
     index++;
   }  
   index=0;
-  ////Fila 5
+  //Fila 5
   for(int i =0;i<3;i++){
     float x=i*random(grid*2,200);  //separación
     logs[index]=new Obstacle(x,height-grid*6,grid*3,grid,1.2);
@@ -63,77 +148,21 @@ void setup() {
     logs[index]=new Obstacle(x,height-grid*7,grid*2,grid,-2.2);
     index++;
   }
-    //Fila 7
+   //Fila 7
   for(int i =0;i<3;i++){
     float x=i*random(grid*2,300);  //separación
     logs[index]=new Obstacle(x,height-grid*8,grid*2,grid,0.6);
     index++;
-  } 
-
-}
-
-void draw() {
-  background(0);
-  fill(255,100,100);
-  rect(0,height-grid,width,grid);
-  rect(0,height-grid*5,width,grid);
-  rect(0,height-grid*9,width,grid);
-  fill(255,200,100);
-  rect(0,height-grid*13,width,grid);
- 
-  for (Obstacle car: cars){
-    car.show();
-    car.update();
-    if (car.choca(frog)){
-      println("GAME OVER");
-      resetGame();
-      
-    }
   }
- 
-  for (Obstacle log: logs){
-    log.show();
-    log.update();
-
-    }
-  if(frog.y < height-grid*5 && frog.y >height-grid*8){
-    boolean ok=false;  
-    for (Obstacle log: logs){
-      if(frog.choca(log)){
-        ok=true;
-        frog.attach(log);
-      }
-
-    }
-    if(!ok){
-      resetGame();  
-  } 
-  }
-  else{
-   frog.attach(null);
-
-}
-  frog.update();
-  frog.show();
-  
-  win();
-}
-void keyPressed(){
-
-  if(keyCode== UP){
-    frog.move(0,-1);
-  } else if (keyCode== DOWN){
-    frog.move(0,1);
-  } else if (keyCode== RIGHT){
-    frog.move(1,0);
-  } else if (keyCode== LEFT){
-    frog.move(-1,0);
+  for (int i = 0; i < nivel + 10; i++) {
+    float x = random(width);
+    float y = random(height); 
+    frutas[i] = new Fruta(x, y, grid);
   }
 }
 
-void win(){
-    if(frog.y==height-grid*13){
-    println("WIN!");
-    resetGame();
-  }
+void mostrarPuntuacion() {
+  fill(255);
+  textSize(20);
+  text("Puntuación: " + puntuacion, 10, 30);
 }
