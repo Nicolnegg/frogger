@@ -1,8 +1,10 @@
 class Obstacle extends Rectangulo {
   float speed;
-  Obstacle(float x, float y, float w, float h, float s) {
+  PImage imgCarro; 
+  Obstacle(float x, float y, float w, float h, float s, String imgPath) {
     super(x, y, w, h);
     speed = s;
+    imgCarro = loadImage(imgPath);
   }
   void update() {
     x = x + speed;
@@ -13,7 +15,12 @@ class Obstacle extends Rectangulo {
     }
   }
   void show() {
-    fill(200);
-    rect(x, y, w, h);
+    // Calcula la escala de la imagen para mantener su proporción
+    float scale = min(w / imgCarro.width, h / imgCarro.height);
+    float imageWidth = imgCarro.width * scale;
+    float imageHeight = imgCarro.height * scale;
+    float offsetX = (w - imageWidth) / 2;
+    float offsetY = (h - imageHeight) / 2;
+    image(imgCarro, x + offsetX, y + offsetY, imageWidth, imageHeight);
   }
 }

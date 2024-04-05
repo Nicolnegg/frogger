@@ -11,9 +11,9 @@ class Lane extends Rectangulo {
     for (int i = 0; i < obstacles.length; i++) {
       float obsX = x + i * spacing;
       if (y == height - grid * 2 || y == height - grid * 6 || y == height - grid * 10) {
-        obstacles[i] = new Obstacle(obsX, y, grid, grid, nivel * 0.9);
+        obstacles[i] = new Obstacle(obsX, y, grid, grid, nivel * 0.9,"Img/carro_1.png");
       } else {
-        obstacles[i] = new Obstacle(obsX, y, grid * 2, grid, -nivel * 0.9);
+        obstacles[i] = new Obstacle(obsX, y, grid * 2, grid, -nivel * 0.9,"Img/carro_1.png");
       }
     }
   }
