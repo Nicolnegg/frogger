@@ -9,6 +9,7 @@ PImage imagenFondo;
 PImage imagenW;
 PImage imagenAgua;
 
+Music music;
 void resetGame() {
   frog = new Frog(width / 2 - grid / 2, grid * 2, grid);
   frog.attach(null);
@@ -17,7 +18,10 @@ void resetGame() {
 }
 
 void setup() {
+  music=new Music(this);
+  music.playMusic();
   size(600, 560);
+  initMenuSettings();
   cars = new Obstacle[24];
   logs = new Obstacle[8];
   frutas = new Fruta[10]; // Ajustar la cantidad de frutas
@@ -31,8 +35,25 @@ void setup() {
   imagenAgua = loadImage("Img/agua.png");
   imagenAgua.resize(width, height / 10);
 }
-
-void draw() {
+void draw(){
+  switch(gameState){
+    case MENUSCREEN:
+      TitleMenu();
+      break;
+    case GAMEOVERSCREEN:
+      GameOverScreen();
+      break;
+    case NEWLEVELSCREEN:
+      break;
+    case CREDITSSCREEN:
+      creditsScreen();
+      break;
+    case GAMESCREEN:
+      playGame();
+      break;
+  }
+}
+void playGame() {
   background(0);
   imageMode(CORNER);
   image(imagenW, 0, height-grid, width, grid);  
@@ -46,6 +67,10 @@ void draw() {
     car.update();
     if (car.choca(frog)) {
       println("GAME OVER");
+      // music.stopMusic();
+      // music.setSong();
+      // music.playMusic();
+      gameState=2;
       resetGame();
     }
   }
@@ -89,15 +114,35 @@ void draw() {
 }
 
 void keyPressed() {
-  if (keyCode == UP) {
-    frog.move(0, -1);
-  } else if (keyCode == DOWN) {
-    frog.move(0, 1);
-  } else if (keyCode == RIGHT) {
-    frog.move(1, 0);
-  } else if (keyCode == LEFT) {
-    frog.move(-1, 0);
+  switch(gameState){
+    case MENUSCREEN:
+      keyPressedMenu();
+      break;
+    case GAMESCREEN:
+      keyPressedInGame();
+      break;
+    case CREDITSSCREEN:
+      keyPressedCredits();
+      break;
+    case GAMEOVERSCREEN:
+      keyPressedCredits();
+      break;
   }
+  
+}
+
+void keyPressedInGame(){
+  if (keyCode == UP) {
+        frog.move(0, -1);
+      } else if (keyCode == DOWN) {
+        frog.move(0, 1);
+      } else if (keyCode == RIGHT) {
+        frog.move(1, 0);
+      } else if (keyCode == LEFT) {
+        frog.move(-1, 0);
+      } else if(key=='P' || key=='p'){
+        gameState=0;
+      } 
 }
 
 void generarNivel(int nivel) {
