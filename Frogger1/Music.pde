@@ -3,10 +3,12 @@ class Music{
     SoundFile currentSong;
     SoundFile laVelocidadDelaLuz;
     SoundFile lagoEnElCielo;
+    SoundFile sadSong;
     final String[] SONGPATHS={"a","b"};
     Music(Frogger1 froger){
         this.laVelocidadDelaLuz=new SoundFile(froger,"Menu/assets/LagoEnElCielo.wav");
         this.lagoEnElCielo=new SoundFile(froger,"Menu/assets/LaVelocidadDeLaLuz.wav");
+        this.sadSong=new SoundFile(froger,"Menu/assets/LosCaminosDeLaVida.wav");
         currentSong=this.lagoEnElCielo;
     }
     void setSong(int song){
@@ -28,6 +30,17 @@ class Music{
     currentSong.stop();
     }
     void playMusic(){
-    currentSong.play();
+        sadSong.stop();
+        currentSong.play();
+    }
+    void playSadMusic(){
+        currentSong.stop();
+        sadSong.play();
+    }
+    boolean isPlaying(){
+        return currentSong.isPlaying();
+    }
+    boolean isSadPlaying(){
+        return sadSong.isPlaying();
     }
 }
