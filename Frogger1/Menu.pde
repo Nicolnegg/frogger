@@ -69,6 +69,10 @@ void creditsScreen(){
 void keyPressedCredits(){
   if(keyCode==ENTER || key==' '){
     gameState=0;
+    if(!music.isPlaying()){
+      music.setSong();
+      music.playMusic();
+    }
   }
 }
 void DrawBackground(PImage background){

@@ -67,9 +67,7 @@ void playGame() {
     car.update();
     if (car.choca(frog)) {
       println("GAME OVER");
-      // music.stopMusic();
-      // music.setSong();
-      // music.playMusic();
+      music.playSadMusic();
       gameState=2;
       resetGame();
     }
