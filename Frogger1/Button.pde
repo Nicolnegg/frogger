@@ -1,4 +1,3 @@
-
 class Button{
     int state;
     PImage selected;

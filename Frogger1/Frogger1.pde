@@ -26,8 +26,8 @@ void setup() {
   logs = new Obstacle[8];
   frutas = new Fruta[10]; // Ajustar la cantidad de frutas
   resetGame();
-  generarNivel(nivel);
   nivel=1;
+  generarNivel(nivel);
   imagenFondo = loadImage("Img/pasto_2.png");
   imagenFondo.resize(width, height / 30);
   imagenW = loadImage("Img/pasto.png");
@@ -90,7 +90,7 @@ void playGame() {
     }
   }
 
-  if (frog.y < height-grid*5 && frog.y > height-grid*8) {
+  if (frog.y < height-grid*5 && frog.y >= height-grid*8) {
     boolean ok = false;
     for (Obstacle log : logs) {
       if (frog.choca(log)) {
@@ -107,10 +107,17 @@ void playGame() {
   frog.update();
   frog.show();
   mostrarPuntuacion();
-  if (puntuacion >= 50 && frog.y==height-grid*13) {
-    nivel++;
-    generarNivel(nivel);
+  if (puntuacion >= nivel*60 && frog.y==height-grid*1) {
+    if(nivel <= 20){
+      nivel++;
+      generarNivel(nivel);
+      println("Nivel:" + nivel); 
+    }
+    else{
+      println("Ganaste");
+    }
   }
+    
 }
 
 void keyPressed() {
@@ -157,65 +164,65 @@ void generarNivel(int nivel) {
   //Fila 1
   for(int i =1;i<4;i++){
     float x=i*random(grid*3+140,200);  //separación
-    String imgPath = "Img/camion_" + int(random(1, 5)) + ".png"; // Selecciona aleatoria
-    cars[index]=new Obstacle(x,height-grid*2,grid*2,grid,4, imgPath);
+    String imgPath = "Img/camioneta_" + int(random(1, 7)) + ".png"; // Selecciona aleatoria
+    cars[index]=new Obstacle(x,height-grid*2,grid*2,grid, -nivel*0.5, imgPath);
     index++;
   }
   //Fila 2
   for(int i =1;i<6;i++){
     float x=i*random(grid*4+80,200);  //separación
     String imgPath = "Img/carro_" + int(random(1, 8)) + ".png"; // Selecciona aleatoria
-    cars[index]=new Obstacle(x,height-grid*3,grid,grid,3,imgPath);
+    cars[index]=new Obstacle(x,height-grid*3,grid,grid, nivel*0.5,imgPath);
     index++;
   }
   //Fila 3
   for(int i =1;i<5;i++){
     float x=i*random(grid*4+100,200);  //separación
     String imgPath = "Img/camioneta_" + int(random(1, 7)) + ".png";
-    cars[index]=new Obstacle(x,height-grid*4,grid,grid, -4,imgPath);
+    cars[index]=new Obstacle(x,height-grid*4,grid,grid, -nivel*0.5,imgPath);
     index++;
   }
    //Fila 9
   for(int i =1;i<6;i++){
     float x=i*random(grid*2+80,200);  //separación
     String imgPath = "Img/carro_" + int(random(1, 8)) + ".png";
-    cars[index]=new Obstacle(x,height-grid*10,grid,grid,0.9,imgPath);
+    cars[index]=new Obstacle(x,height-grid*10,grid,grid,nivel*0.5,imgPath);
     index++;
   }
    //Fila 10
   for(int i =1;i<5;i++){
     float x=i*random(grid*2+100,200);  //separación
     String imgPath = "Img/camioneta_" + int(random(1, 7)) + ".png";
-    cars[index]=new Obstacle(x,height-grid*11,grid,grid,-2,imgPath);
+    cars[index]=new Obstacle(x,height-grid*11,grid,grid,-nivel*0.5,imgPath);
     index++;
   } 
    //Fila 11
   for(int i =1;i<4;i++){
     float x=i*random(grid*2+140,200);  //separación
     String imgPath = "Img/camion_" + int(random(1, 5)) + ".png"; // Selecciona aleatoria
-    cars[index]=new Obstacle(x,height-grid*12,grid*2,grid,2.9,imgPath);
+    cars[index]=new Obstacle(x,height-grid*12,grid*2,grid,nivel*0.5,imgPath);
     index++;
   }  
   index=0;
   //Fila 5
   for(int i =0;i<3;i++){
     float x=i*random(grid*2,200);  //separación
-    logs[index]=new Obstacle(x,height-grid*6,grid*3,grid,1.2,"Img/tronco_1.png");
+    logs[index]=new Obstacle(x,height-grid*6,grid*2,grid,nivel*0.5,"Img/tronco_1.png");
     index++;
   }
   //Fila 6
   for(int i =0;i<2;i++){
     float x=i*random(grid*2,300);  //separación
-    logs[index]=new Obstacle(x,height-grid*7,grid*2,grid,-2.2,"Img/tronco_2.png");
+    logs[index]=new Obstacle(x,height-grid*7,grid*2,grid,-nivel*0.5,"Img/tronco_2.png");
     index++;
   }
    //Fila 7
   for(int i =0;i<3;i++){
     float x=i*random(grid*2,300);  //separación
-    logs[index]=new Obstacle(x,height-grid*8,grid*2,grid,0.6,"Img/tronco_2.png");
+    logs[index]=new Obstacle(x,height-grid*8,grid*2,grid,nivel*0.5,"Img/tronco_2.png");
     index++;
   }
-  for (int i = 0; i < nivel + 10; i++) {
+  for (int i = 0; i < nivel*2 + 10; i++) {
     float x = random(width);
     float y = random(height); 
     frutas[i] = new Fruta(x, y, grid);
