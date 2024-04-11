@@ -44,6 +44,7 @@ void draw(){
       GameOverScreen();
       break;
     case NEWLEVELSCREEN:
+      newLevelScreen();
       break;
     case CREDITSSCREEN:
       creditsScreen();
@@ -110,6 +111,7 @@ void playGame() {
       nivel++;
       generarNivel(nivel);
       println("Nivel:" + nivel); 
+      gameState=3;
     }
     else{
       println("Ganaste");
@@ -131,6 +133,9 @@ void keyPressed() {
       break;
     case GAMEOVERSCREEN:
       keyPressedCredits();
+      break;
+    case NEWLEVELSCREEN:
+      keyPressedNewLevel();
       break;
   }
   
@@ -229,6 +234,8 @@ void generarNivel(int nivel) {
 
 void mostrarPuntuacion() {
   fill(255);
-  textSize(20);
+  textFont(font);
+  textSize(15);
+  textAlign(LEFT);
   text("Puntuación: " + puntuacion, 10, 30);
 }

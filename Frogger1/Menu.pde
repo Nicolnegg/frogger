@@ -17,10 +17,14 @@ PImage titleBackground;
 PImage playGreenButton;
 PImage credits;
 PImage menuBtn,gameOverImage;
+PImage newLevelImage;
+PImage continueButton;
 int menuBtnSelected=0;
+PFont font;
 Button[] menuBtns;
 void TitleMenu(){
   DrawBackground(titleBackground);
+  filter(BLUR);
   imageMode(CENTER);
   for(int i=0;i<menuBtns.length;i++){
     menuBtns[i].show(menuBtnSelected==i,width/2,(i+1)*height/4);
@@ -30,6 +34,8 @@ void TitleMenu(){
 
 void initMenuSettings(){
   titleBackground=loadImage("Menu/assets/Swamp1.jpg");
+  newLevelImage=loadImage("Menu/assets/newLevel.png");
+  continueButton=loadImage("Menu/assets/continueButton.png");
   menuBtns=new Button[3];
   //playBtn[0]=loadImage("Menu/assets/butonPlayNS.png");
   menuBtns[0]=new Button("Menu/assets/buttonPlayS.png","Menu/assets/buttonPlayNS.png",150,50);
@@ -38,6 +44,7 @@ void initMenuSettings(){
   credits=loadImage("Menu/assets/credits.png");
   menuBtn=loadImage("Menu/assets/buttonBackS.png");
   gameOverImage=loadImage("Menu/assets/GameOverScreen.png");
+  font=createFont("Menu/assets/ARCADE_N.TTF",20);
 }
 void keyPressedMenu(){
   if(keyCode==UP){
@@ -66,9 +73,30 @@ void creditsScreen(){
   image(menuBtn,width/2,4*height/5,150,50);
 
 }
+void newLevelScreen(){
+  DrawBackground(titleBackground);
+  filter(BLUR);
+  imageMode(CENTER);
+  image(newLevelImage,width/2,height/3,200,50);
+  fill(0,0,0);
+  textAlign(CENTER);
+  textFont(font);
+  text("Nivel " + nivel, width/2,height/3+5);
+  imageMode(CENTER);
+  image(continueButton,width/2,height*2/3,200,50);
+}
 void keyPressedCredits(){
   if(keyCode==ENTER || key==' '){
     gameState=0;
+    if(!music.isPlaying()){
+      music.setSong();
+      music.playMusic();
+    }
+  }
+}
+void keyPressedNewLevel(){
+  if(keyCode==ENTER ||key==' '){
+    gameState=5;
     if(!music.isPlaying()){
       music.setSong();
       music.playMusic();
