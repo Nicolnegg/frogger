@@ -14,7 +14,7 @@ void resetGame() {
   frog = new Frog(width / 2 - grid / 2, grid * 2, grid);
   frog.attach(null);
   puntuacion = 0;
-  generarNivel(nivel);// Reiniciar la puntuación
+  generarNivel(1);// Reiniciar la puntuación
 }
 
 void setup() {

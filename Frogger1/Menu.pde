@@ -115,6 +115,7 @@ void DrawBackground(PImage background){
 void GameOverScreen(){
     imageMode(CORNER);
     image(gameOverImage,0,0,width,height);
+    nivel = 1;
 }
 void DrawWinMenu(){
     /**View for victory */
