@@ -12,7 +12,7 @@ Breve descripción del proyecto.
 2. Haz clic en la pestaña "Herramientas" en la barra de menú.
 3. Selecciona "Gestionar Herramientas"
 4. Instalar la librería Sound
-
+5. Ejecutar (Comando recomendado: processing-java --sketch="X" --run ), siendo X la dirección de la carpeta raiz del proyecto
 ## Créditos:
 
 - Lago en el cielo - Gustavo Cerati (Cover 8 bits By: Isaac Fria) [https://youtu.be/r8kuWADq5kU?si=FQw9x__OhSAVwLd6]
