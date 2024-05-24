@@ -1,6 +1,6 @@
 # Frogger 
 
-Breve descripción del proyecto.
+Juego desarrollado para el primer assignment de la materia Computación Visual
 
 ## Requisitos
 
@@ -14,8 +14,8 @@ Breve descripción del proyecto.
 4. Instalar la librería Sound
 5. Ejecutar (Comando recomendado: processing-java --sketch="X" --run ), siendo X la dirección de la carpeta raiz del proyecto
 ## Créditos:
-
-- Lago en el cielo - Gustavo Cerati (Cover 8 bits By: Isaac Fria) [https://youtu.be/r8kuWADq5kU?si=FQw9x__OhSAVwLd6]
-- La velocidad de la luz - Los Bunkers (Cover 8 bits By: Tributo 8bits) [https://youtu.be/3hC53b-jO8Q?si=D4C1psTCX3I4tSmA]
-- Los Caminos de La vida - Los Diablitos (Cover 8 bits By: Musicos Cinicos) [https://youtu.be/D60MyKxTXto?si=kt-xWa7ByZg1voko]
+## Subtitulo:
+    - Lago en el cielo - Gustavo Cerati (Cover 8 bits By: Isaac Fria) [https://youtu.be/r8kuWADq5kU?si=FQw9x__OhSAVwLd6]
+    - La velocidad de la luz - Los Bunkers (Cover 8 bits By: Tributo 8bits) [https://youtu.be/3hC53b-jO8Q?si=D4C1psTCX3I4tSmA]
+    - Los Caminos de La vida - Los Diablitos (Cover 8 bits By: Musicos Cinicos) [https://youtu.be/D60MyKxTXto?si=kt-xWa7ByZg1voko]
 
